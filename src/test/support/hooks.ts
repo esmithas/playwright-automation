@@ -6,10 +6,12 @@ let context: BrowserContext;
 let page: Page;
 
 Before(async function () {
-    browser = await chromium.launch({ headless: false });
-    context = await browser.newContext();
+    browser = await chromium.launch({ headless: false, args: ["--start-maximized"] });
+    context = await browser.newContext({
+        viewport: null
+      });
     page = await context.newPage();
-    this.page = page; // Guarda la página en el contexto de Cucumber
+    this.page = page;
 });
 
 AfterStep(async function ({ result }) {

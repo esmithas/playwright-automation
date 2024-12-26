@@ -9,11 +9,16 @@ Feature: Gestión de Dueños y Mascotas en Petclinic
         When accedo a la lista de owners
         Then debo ver una lista de todos los owners de mascotas registrados correctamente
 
-# Scenario: Ingresar un Nuevo Owner
-#     Given que estoy en la página de Find Owners
-#     When selecciono "Agregar nuevo dueño"
-#     And completo el formulario con nombre, dirección, teléfono, correo electrónico, etc.
-#     Then el nuevo dueño debe aparecer correctamente en la lista de dueños
+    @AddOwner
+    Scenario: Ingresar un Nuevo Owner
+        Given que me dirigo al menú de find owners
+        When selecciono agregar owner
+        And registro el owner en el formulario con los datos
+            | firstName | lastName      | address          | city  | phone      |
+            | Antho     | Alama Sanchez | Av. Buenos Aires | Piura | 9331569950 |
+        And que me dirigo al menú de find owners
+        And accedo a la lista de owners
+        Then el nuevo owner "Antho Alama Sanchez" debe aparecer correctamente en la lista de owners
 
 # Scenario: Buscar y Editar un Owner
 #     Given que estoy en la lista de dueños
