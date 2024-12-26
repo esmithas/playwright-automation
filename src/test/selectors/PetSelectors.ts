@@ -4,4 +4,17 @@ export const petSelectors = {
     birthDate: '#birthDate',
     typeSelect: '#type',
     addPetButton: '//button[contains(text(), "Add Pet")]',
+    itemsPetTable: '//table[2]/tbody/tr',
+    itemsNamePetTable: '.dl-horizontal dd:nth-child(2)',
+    itemsDatePetTable: '.dl-horizontal dd:nth-child(4)',
+    itemsTypePetTable: '.dl-horizontal dd:nth-child(6)',
+    itemsPetVisitTable: '.table-condensed tbody tr',
+    itemDatePetVisitTable: 'td:nth-child(1)',
+    itemDescriptionPetVisitTable: 'td:nth-child(2)',    
+    editPetButton: '//a[contains(text(), "Edit Pet")]',
+    addVisitButton: '//a[contains(text(), "Add Visit")]',
+    dateVisitDate: '#date',
+    descriptionVisitDate: '#description',
+    saveVisitButton: '//button[contains(text(), "Add Visit")]',
+    updatePettButton: '//button[contains(text(), "Update Pet")]'
 };
