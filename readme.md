@@ -35,7 +35,7 @@ Los archivo  `.env` se configurada las variables por entorno:
 
 A continuación se muestra un ejemplo de cómo luce el archivo:
 ```env
-URL="https://www.saucedemo.com"
+URL="https://www.tuweb.com"
 ```
 - ***Los tests se ubican en la siguiente ruta***:
   `src/test/features`
