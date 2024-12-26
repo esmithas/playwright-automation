@@ -13,5 +13,8 @@ export const ownerSelectors = {
     phoneColOwnerTable: 'td:nth-child(4)',
     petsColOwnerTable: 'td:nth-child(5)',
     saveOwnerButton: '//button[contains(text(), "Add Owner")]',
-    lastPageOwners: 'a[title="Last"]'
+    lastPageOwners: 'a[title="Last"]',
+    editOwnerButton: 'a[href*="edit"]',
+    updatedOwnerButton: '//button[contains(text(), "Update Owner")]',
+    successMessageAlert: '#success-message'
 };

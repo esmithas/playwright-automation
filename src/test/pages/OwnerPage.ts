@@ -60,8 +60,23 @@ export class OwnerPage {
         return rowsOwnerListJSON;
     }
 
-    async findOwnerToList(fullname: string, listOwners: IOwnerTable[]) {
+    async isFindOwnerToList(fullname: string, listOwners: IOwnerTable[]) {
         return listOwners.some(item => item.name === fullname);
     }
 
+    async clickEditOwner() {
+        await this.page.locator(ownerSelectors.editOwnerButton).click();
+    }
+
+    async clickToUpdateOwner() {
+        await this.page.locator(ownerSelectors.updatedOwnerButton).click();
+    }
+
+    async getSuccessMessageAlert() {
+        return await this.page.locator(ownerSelectors.successMessageAlert).innerText();
+    }
+
+    async findOwnerToList(lastname: string, listOwners: IOwnerTable[]) {
+        return listOwners.filter(item => item.name.includes(lastname));
+    }
 }

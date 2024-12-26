@@ -14,25 +14,39 @@ Feature: Gestión de Dueños y Mascotas en Petclinic
         Given que me dirigo al menú de find owners
         When selecciono agregar owner
         And registro el owner en el formulario con los datos
-            | firstName | lastName      | address          | city  | phone      |
-            | Antho     | Alama Sanchez | Av. Buenos Aires | Piura | 9331569950 |
+            | firstName | lastName        | address          | city  | phone      |
+            | Owner     | Test Automation | Av. Buenos Aires | Piura | 9331569950 |
         And que me dirigo al menú de find owners
         And accedo a la lista de owners
-        Then el nuevo owner "Antho Alama Sanchez" debe aparecer correctamente en la lista de owners
+        Then el nuevo owner "Owner Test Automation" debe aparecer correctamente en la lista de owners
 
-# Scenario: Buscar y Editar un Owner
-#     Given que estoy en la lista de dueños
-#     When busco al dueño que quiero editar
-#     And selecciono el dueño para hacer clic en "Editar"
-#     And cambio uno de los datos (por ejemplo, el nombre)
-#     Then los cambios deben guardarse correctamente y mostrarse en la lista de dueños
+    @EditOwner
+    Scenario: Buscar y Editar un Owner
+        Given que me dirigo al menú de find owners
+        When busco al owner que quiero editar por su apellido "Test Automation"
+        And doy clic en editar owner
+        And actualizo el campo address "Address update v2"
+        Then guardo y se muestra la alerta "Owner Values Updated"
+        And que me dirigo al menú de find owners
+        And accedo a la lista de owners
+        And busco al owner "Test Automation" y valido que se actualizo el correo "Address update v2"
 
-# Scenario: Agregar 2 Pets a un Owner y Validar que Aparezcan en la Lista de Pets
-#     Given que estoy en el perfil del dueño
-#     When selecciono la opción para agregar mascotas
-#     And completo el formulario con la información de la primera y la segunda mascota (nombre, especie, edad, etc.)
-#     And hago clic en "Guardar" o "Añadir"
-#     Then las mascotas deben aparecer correctamente en la lista de mascotas del dueño
+    @AddPetsToOwner
+    Scenario: Agregar 2 Pets a un Owner y Validar que Aparezcan en la Lista de Pets
+        Given que me dirigo al menú de find owners
+        And busco al owner que quiero editar por su apellido "Test Automation"
+        When selecciono la opción para agregar mascotas
+        And agrego y completo el formulario con la información de las mascotas
+            | name      | birthDate  | type |
+            | Chrono v6 | 2024-12-18 | cat  |
+            | Garras v6 | 2024-12-20 | dog  |
+        And que me dirigo al menú de find owners
+        And accedo a la lista de owners
+        Then busco al owner "Test Automation" y valido que se encuentran las mascotas
+            | namePet   |
+            | Chrono v6 |
+            | Garras v6 |
+
 
 # Scenario: Escoger un Pet y Agregar una Visita, Validar que Aparezca en el Listado de Visitas
 #     Given que estoy en el perfil de la mascota
