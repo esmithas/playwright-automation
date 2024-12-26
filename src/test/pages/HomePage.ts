@@ -5,7 +5,7 @@ export class HomePage {
     constructor(private page: Page) { }
 
     async goto() {
-        await this.page.goto('https://petclinic-production.up.railway.app/');
+        await this.page.goto(process.env.URL_BASE);
     }
 
     async getMessageWelcome() {

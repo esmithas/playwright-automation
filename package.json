@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js test"
+    "test:dev": "cross-env NODE_ENV=dev npx cucumber-js",
+    "test:qa": "cross-env NODE_ENV=qa npx cucumber-js"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +15,9 @@
     "@playwright/test": "^1.49.1",
     "@types/node": "^22.10.2",
     "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7"
   }
 }

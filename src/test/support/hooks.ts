@@ -1,5 +1,7 @@
 import { Before, After, AfterStep } from '@cucumber/cucumber';
 import { Browser, BrowserContext, Page, chromium } from '@playwright/test';
+import dotenv from 'dotenv';
+dotenv.config({ path: `.env.${process.env.NODE_ENV ?? 'qa'}` });
 
 let browser: Browser;
 let context: BrowserContext;
