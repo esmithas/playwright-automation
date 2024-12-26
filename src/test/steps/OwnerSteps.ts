@@ -40,7 +40,7 @@ Then('el nuevo owner {string} debe aparecer correctamente en la lista de owners'
     expect(isFind).toBeTruthy();
 });
 
-When('busco al owner que quiero editar por su apellido {string}', async function (lastname: string) {
+When('filtro al owner por su apellido {string}', async function (lastname: string) {
     await ownerPage.fillLastName(lastname);
     await ownerPage.clickToFindOwner();
 });
@@ -60,22 +60,36 @@ Then('guardo y se muestra la alerta {string}', async function (message: string) 
 });
 
 Then('busco al owner {string} y valido que se actualizo el correo {string}', async function (lastName: string, address: string) {
-    await ownerPage.clickLastPageOwners();
-    const listOwners = await ownerPage.getListItemsOwners();
-    const ownerTable:OwnerTable[] = await ownerPage.findOwnerToList(lastName, listOwners);
-    expect(ownerTable.length).toBeGreaterThan(0);
-    expect(ownerTable[0].address).toEqual(address);
+    const countLastPage = await ownerPage.getLastPageOwners();
+    let addressInfo: string = '';
+    if ( await ownerPage.countListItemsOwners() > 0) {
+        if (await countLastPage.count() > 0) {
+            await ownerPage.clickLastPageOwners();
+        }
+        const listOwners = await ownerPage.getListItemsOwners();
+        const ownerTable: OwnerTable[] = await ownerPage.findOwnerToList(lastName, listOwners);
+        expect(ownerTable.length).toBeGreaterThan(0);
+        addressInfo = ownerTable[0].address;
+    } else {
+        addressInfo = await ownerPage.getTextAddressOwners();
+    }
+
+    expect(addressInfo).toEqual(address);
 });
 
 Then('busco al owner {string} y valido que se encuentran las mascotas', async function (lastName: string, dataTable) {
     await ownerPage.clickLastPageOwners();
     const listOwners = await ownerPage.getListItemsOwners();
-    const ownerTable:OwnerTable[] = await ownerPage.findOwnerToList(lastName, listOwners);
+    const ownerTable: OwnerTable[] = await ownerPage.findOwnerToList(lastName, listOwners);
     expect(ownerTable.length).toBeGreaterThan(0);
-    
+
     const petsOwnerTable = ownerTable[0].pets;
-    const pets: {namePet: string}[] = dataTable.hashes();
+    const pets: { namePet: string }[] = dataTable.hashes();
     for (const pet of pets) {
         expect(petsOwnerTable).toContain(pet.namePet);
     }
+});
+
+When('valido que se muestra el owner a editar {string}', async function (fullname: string) {
+    await ownerPage.actionToPetOntable(fullname);
 });

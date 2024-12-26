@@ -10,8 +10,11 @@ let page: Page;
 Before(async function () {
     browser = await chromium.launch({ headless: false, args: ["--start-maximized"] });
     context = await browser.newContext({
-        viewport: null
-      });
+        viewport: null,
+        // recordVideo: {
+        //     dir: 'videos/',
+        // }
+    });
     page = await context.newPage();
     this.page = page;
 });

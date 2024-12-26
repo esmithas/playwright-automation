@@ -45,6 +45,14 @@ export class OwnerPage {
         await this.page.locator(ownerSelectors.lastPageOwners).click();
     }
 
+    async getLastPageOwners() {
+        return await this.page.locator(ownerSelectors.lastPageOwners);
+    }
+
+    async getTextAddressOwners() {
+        return await this.page.locator(ownerSelectors.itemsAddressOwnerInfo).innerText();
+    }
+
     async getListItemsOwners() {
         const rowsOwnerListJSON: IOwnerTable[] = [];
         const rowsOwnerList = await this.page.locator(ownerSelectors.itemsOwnersTable).all();
@@ -78,5 +86,21 @@ export class OwnerPage {
 
     async findOwnerToList(lastname: string, listOwners: IOwnerTable[]) {
         return listOwners.filter(item => item.name.includes(lastname));
+    }
+
+    async actionToPetOntable(fullname: string) {
+        const rowsPetTable = await this.page.locator(ownerSelectors.itemsOwnersTable).all();
+        if (rowsPetTable.length > 0) {
+            let isFinToList = false;
+            for (const pet of rowsPetTable) {
+                const name = await pet.locator(ownerSelectors.nameColOwnerTable);
+                if (await name.innerText() === fullname) {
+                    await name.click();
+                    isFinToList = true;
+                    break;
+                }
+            }
+            
+        }
     }
 }
